@@ -19,10 +19,10 @@ def create_app(config_class=Config):
     login_manager.init_app(app)
     
     from eurovote.users.routes import users
-    from eurovote.main.routes import main
+    from eurovote.votes.routes import votes
     from eurovote.errors.handlers import errors
     app.register_blueprint(users)
-    app.register_blueprint(main)
+    app.register_blueprint(votes)
     app.register_blueprint(errors)
 
     return app

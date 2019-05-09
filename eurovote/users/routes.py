@@ -10,7 +10,7 @@ users = Blueprint('users', __name__)
 @users.route('/register',methods=['GET','POST']) 
 def register():
     if current_user.is_authenticated:
-        return redirect(url_for('main.home'))
+        return redirect(url_for('users.account'))
     form = RegistrationForm()
     if form.validate_on_submit():
         hashed_pw = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
@@ -21,10 +21,11 @@ def register():
         return redirect(url_for('users.login'))
     return render_template('register.html', title='Register', form=form)
 
+@users.route('/',methods=['GET','POST'])
 @users.route('/login',methods=['GET','POST'])
 def login():
     if current_user.is_authenticated:
-        return redirect(url_for('main.home'))
+        return redirect(url_for('users.account'))
     form = LoginForm()
     if form.validate_on_submit():
         user = User.query.filter_by(email=form.email.data).first()
@@ -32,7 +33,7 @@ def login():
             login_user(user, remember=form.remember.data)
             next_page = request.args.get('next')
             flash('You are now logged in.','success')
-            return redirect(next_page) if next_page else redirect(url_for('main.home'))
+            return redirect(next_page) if next_page else redirect(url_for('users.account'))
         else:
             flash('Login unsuccessful. Please check email and password','danger')
     return render_template('login.html', title='Login', form=form)
@@ -41,7 +42,7 @@ def login():
 def logout():
     logout_user()
     flash('You are now logged out.','success')
-    return redirect(url_for('main.home'))
+    return redirect(url_for('users.login'))
 
 @users.route('/account',methods=['GET','POST'])
 @login_required
