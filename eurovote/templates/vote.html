@@ -2,11 +2,8 @@
 {% block content %}
 <div class="content-section">
   <div class="media">
-    <img class="rounded-circle account-img" src="{{ image_file }}">
     <div class="media-body">
       <h2 class="account-heading">{{ current_user.username }}</h2>
-      <p class="text-secondary">{{ current_user.email }}</p>
-      <p class="text-secondary">Vote here</p>
     </div>
   </div>
   <!-- FORM HERE -->
@@ -14,43 +11,37 @@
     {{ form.hidden_tag() }}
     <fieldset class="form-group">
       <div class="form-group">
-	{{ form.song.label(class="form-control-label") }}
-	{% if form.song.errors %}
-	{{ form.song(class="form-control form-control-lg is-invalid") }}
-	<div class="invalid-feedback">
-	  {% for error in form.song.errors %}
-	  <span>{{ error }}</span>
+	{{ form.song.label(class="form-control-label") }}:
+	<p>
+	  {% for subfield in form.song %}
+	  <tr>
+	    <td>{{ subfield }}</td>
+	    <td>{{ subfield.label }}</td>
+	  </tr>
 	  {% endfor %}
-	</div>
-	{% else %}
-	{{ form.song(class="form-control form-control-lg") }}
-	{% endif %}
+	</p>
       </div>
       <div class="form-group">
-	{{ form.outfit.label(class="form-control-label") }}
-	{% if form.outfit.errors %}
-	{{ form.outfit(class="form-control form-control-lg is-invalid") }}
-	<div class="invalid-feedback">
-	  {% for error in form.outfit.errors %}
-	  <span>{{ error }}</span>
+	{{ form.outfit.label(class="form-control-label") }}:
+	<p>
+	  {% for subfield in form.outfit %}
+	  <tr>
+	    <td>{{ subfield }}</td>
+	    <td>{{ subfield.label }}</td>
+	  </tr>
 	  {% endfor %}
-	</div>
-	{% else %}
-	{{ form.outfit(class="form-control form-control-lg") }}
-	{% endif %}
+	</p>
       </div>
       <div class="form-group">
-	{{ form.performance.label(class="form-control-label") }}
-	{% if form.performance.errors %}
-	{{ form.performance(class="form-control form-control-lg is-invalid") }}
-	<div class="invalid-feedback">
-	  {% for error in form.performance.errors %}
-	  <span>{{ error }}</span>
+	{{ form.performance.label(class="form-control-label") }}:
+	<p>
+	  {% for subfield in form.performance %}
+	  <tr>
+	    <td>{{ subfield }}</td>
+	    <td>{{ subfield.label }}</td>
+	  </tr>
 	  {% endfor %}
-	</div>
-	{% else %}
-	{{ form.performance(class="form-control form-control-lg") }}
-	{% endif %}
+	</p>
       </div>
     </fieldset>
     <div class="form-group">
