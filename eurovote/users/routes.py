@@ -33,7 +33,7 @@ def login():
             login_user(user, remember=form.remember.data)
             next_page = request.args.get('next')
             flash('You are now logged in.','success')
-            return redirect(next_page) if next_page else redirect(url_for('users.account'))
+            return redirect(next_page) if next_page else redirect(url_for('votes.cast'))
         else:
             flash('Login unsuccessful. Please check email and password','danger')
     return render_template('login.html', title='Login', form=form)

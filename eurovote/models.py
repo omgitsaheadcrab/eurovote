@@ -26,4 +26,5 @@ class Vote(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     
     def __repr__(self):
-        return f"Country('{self.name}')"
+        return f"Vote('{self.name}')"
+

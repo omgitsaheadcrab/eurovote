@@ -11,6 +11,10 @@
     {{ form.hidden_tag() }}
     <fieldset class="form-group">
       <div class="form-group">
+	{{ form.name.label(class="form-control-label") }}:
+	{{ form.name(class="form-control form-control-lg") }}
+      </div>
+      <div class="form-group">
 	{{ form.song.label(class="form-control-label") }}:
 	<p>
 	  {% for subfield in form.song %}
