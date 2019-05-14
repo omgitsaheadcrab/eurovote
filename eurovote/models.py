@@ -1,6 +1,7 @@
 from flask import current_app
 from eurovote import db, login_manager
 from flask_login import UserMixin
+from sqlalchemy.ext.hybrid import hybrid_method
 
 @login_manager.user_loader
 def load_user(user_id):
@@ -28,3 +29,11 @@ class Vote(db.Model):
     def __repr__(self):
         return f"Vote('{self.name}')"
 
+
+    @hybrid_method
+    def total_score(self, fields):
+        return sum(getattr(self, field) for field in fields)
+
+    @total_score.expression
+    def total_score(cls, fields):
+        return sum(getattr(cls, field) for field in fields)
