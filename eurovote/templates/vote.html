@@ -14,8 +14,8 @@
 	{{ form.name.label(class="form-control-label") }}:
 	{{ form.name(class="form-control form-control-lg") }}
       </div>
-      <div class="form-group">
-	{{ form.song.label(class="form-control-label") }}:
+      {{ form.song.label(class="form-control-label") }}:
+      <div id="radios1" class="form-group">
 	<p>
 	  {% for subfield in form.song %}
 	  <tr>
@@ -25,8 +25,8 @@
 	  {% endfor %}
 	</p>
       </div>
-      <div class="form-group">
-	{{ form.outfit.label(class="form-control-label") }}:
+      {{ form.outfit.label(class="form-control-label") }}:
+      <div id="radios2" class="form-group">
 	<p>
 	  {% for subfield in form.outfit %}
 	  <tr>
@@ -36,8 +36,8 @@
 	  {% endfor %}
 	</p>
       </div>
-      <div class="form-group">
-	{{ form.performance.label(class="form-control-label") }}:
+      {{ form.performance.label(class="form-control-label") }}:
+      <div id="radios3" class="form-group">
 	<p>
 	  {% for subfield in form.performance %}
 	  <tr>
@@ -53,4 +53,6 @@
     </div>
   </form>
 </div>
+
+
 {% endblock content %}

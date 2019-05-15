@@ -22,3 +22,4 @@ and visit
 ## Acknowledgments
 
 * Corey Schafer for the excellent YouTube series on Flask.
+* [radios-to-slider jQuery plugin](https://github.com/rubentd/radios-to-slider/)
