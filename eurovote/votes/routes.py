@@ -3,6 +3,7 @@ from flask_login import current_user, login_required
 from eurovote import db
 from eurovote.models import Vote, User
 from eurovote.votes.forms import VoteForm
+from eurovote.votes.utils import Statistics, StatsTable
 from sqlalchemy import desc, func
 from sqlalchemy.sql import label
 
@@ -67,26 +68,29 @@ def cast():
             return redirect(url_for('votes.cast'))
     return render_template('vote.html', title='Vote', form=form)
 
-class Statistics():
-    def __init__(self):
-        self.max_score = 0
-        self.min_score = 0
-        self.max_song = 0
-        self.min_song = 0
-        self.max_outfit = 0
-        self.min_outfit = 0
-        self.max_performance = 0
-        self.min_performance = 0
- 
+
 @votes.route('/stats',methods=['GET','POST']) 
 def stat():
     if not current_user.is_authenticated:
         return redirect(url_for('users.login'))
 
     stat = Statistics()
-
+    
     fields = ['song', 'outfit', 'performance']
 
+    alltotals = db.session.query(Vote.name,
+                                 label('total_score',
+                                       func.sum(Vote.total_score(fields))),
+                                 label('song_score',
+                                       func.sum(Vote.total_score(['song']))),
+                                 label('outfit_score',
+                                       func.sum(Vote.total_score(['outfit']))),
+                                 label('performance_score',
+                                       func.sum(Vote.total_score(['performance']))),
+    ).group_by('name').order_by(desc('total_score')).all()
+    
+    table = StatsTable(alltotals)
+    
     total_score = db.session.query(Vote.name, label('total_score',func.sum(Vote.total_score(fields)))).group_by('name')
     
     stat.max_score = total_score.order_by(desc('total_score')).first()
@@ -107,4 +111,4 @@ def stat():
     stat.max_performance = total_perf.order_by(desc('total_score')).first()
     stat.min_performance = total_perf.order_by('total_score').first()
 
-    return render_template('stats.html', title='Statistics', stat=stat)
+    return render_template('stats.html', title='Statistics', stat=stat, table=table)

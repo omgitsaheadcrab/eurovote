@@ -43,3 +43,4 @@ class VoteForm(FlaskForm):
    performance = RadioField('Performance', coerce=int, choices=SCORES,validators=[InputRequired()])
    
    submit = SubmitField('Submit')
+

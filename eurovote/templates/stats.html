@@ -3,11 +3,11 @@
 <legend class="border-bottom mb-4">Live scores</legend>
 <div>
   <p>
-    <b>Highest overall score:</b>
+    <b>Highest total score:</b>
     {{ stat.max_score.name }} with {{ stat.max_score.total_score}} points.
   </p>
   <p>
-    <b>Lowest overall score:</b>
+    <b>Lowest total score:</b>
     {{ stat.min_score.name }} with {{ stat.min_score.total_score }} points.
   </p>
   <p>
@@ -34,5 +34,8 @@
     <b>Worst performance:</b>
     {{ stat.min_performance.name }} with {{ stat.min_performance.total_score}} points.
   </p>
+</div>
+<div class="mt-4">
+  {{ table }}
 </div>
 {% endblock content %}
